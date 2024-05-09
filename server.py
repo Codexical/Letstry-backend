@@ -39,5 +39,63 @@ def health():
     )
 
 
+@app.route("/login", methods=["POST"])
+def login():
+    """
+    Login
+    ---
+    parameters:
+      - name: account
+        in: formData
+        type: string
+        required: true
+      - name: password
+        in: formData
+        type: string
+        required: true
+    responses:
+        200:
+            description: OK
+            examples:
+                application/json: {"status": "ok", "ID": 0, "username": "name"}
+        400:
+            description: Password incorrect
+            examples:
+                application/json: {"status": "Password incorrect"}
+        400:
+            description: No user found
+            examples:
+                application/json: {"status": "No user found"}
+
+    """
+    account = request.values["account"]
+    password = request.values["password"]
+    if account in users:
+        if users[account]["password"] == password:
+            return Response(
+                json.dumps(
+                    {
+                        "status": "ok",
+                        "ID": users[account]["ID"],
+                        "username": users[account]["username"],
+                    }
+                ),
+                status=200,
+                mimetype="application/json",
+            )
+        else:
+            return Response(
+                json.dumps({"status": "Password incorrect"}),
+                status=400,
+                mimetype="application/json",
+            )
+    else:
+        return Response(
+            json.dumps({"status": "No user found"}),
+            status=400,
+            mimetype="application/json",
+        )
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
