@@ -11,7 +11,7 @@ if os.path.exists("storage/users.json"):
 else:
     users = {"test": {"ID": 0, "username": "aura", "password": "test"}}
 
-
+# init app
 app = Flask(__name__)
 app.config["SWAGGER"] = {
     "title": "Letstry system API",
@@ -23,6 +23,7 @@ CORS(app)
 Swagger(app)
 
 
+# routes
 @app.route("/health", methods=["POST"])
 def health():
     """
@@ -161,5 +162,6 @@ def create():
         )
 
 
+# run app
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
