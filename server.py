@@ -28,6 +28,8 @@ def health():
     """
     Health check
     ---
+    tags:
+        - health
     responses:
       200:
         description: OK
@@ -44,6 +46,8 @@ def login():
     """
     Login
     ---
+    tags:
+        - teacher
     parameters:
       - name: account
         in: formData
@@ -102,6 +106,8 @@ def create():
     """
     Create a new user
     ---
+    tags:
+        - teacher
     parameters:
       - name: username
         in: formData
