@@ -22,5 +22,22 @@ app.config["SWAGGER"] = {
 CORS(app)
 Swagger(app)
 
+
+@app.route("/health", methods=["POST"])
+def health():
+    """
+    Health check
+    ---
+    responses:
+      200:
+        description: OK
+        examples:
+            application/json: {"status": "ok"}
+    """
+    return Response(
+        json.dumps({"status": "ok"}), status=200, mimetype="application/json"
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
