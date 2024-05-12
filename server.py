@@ -9,7 +9,9 @@ if os.path.exists("storage/users.json"):
     with open("storage/users.json", "r") as f:
         users = json.load(f)
 else:
-    users = {"test": {"ID": 0, "username": "aura", "password": "test"}}
+    users = {}
+    with open("storage/users.json", "w") as f:
+        json.dump(users, f, indent=4)
 
 # init app
 app = Flask(__name__)
